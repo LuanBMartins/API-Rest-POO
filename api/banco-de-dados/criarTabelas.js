@@ -1,6 +1,10 @@
-const ModeloTabela = require('../rotas/fornecedores/ModeloTabelaFornecedor')
+const modelos = [
+    require('../rotas/fornecedores/ModeloTabelaFornecedor'),
+    require('../rotas/fornecedores/produtos/ModeloTabelaProduto')
+]
 
-ModeloTabela
-    .sync()
-    .then(() => console.log('Tabela criada com sucesso'))
-    .catch(console.log)
+function criarTabela() {
+    modelos.forEach(item => item.sync())
+}
+
+criarTabela()

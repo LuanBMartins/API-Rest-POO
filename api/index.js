@@ -26,7 +26,7 @@ app.use((erro, req, res, next) => {
     if(erro.message === 'Fornecedor não encontrado') {
         res.status(404).send(serializador.serializar(erro))    
     }else{
-        res.status(401).send(serializador.serializar(erro))
+        res.status(500).send(serializador.serializar(erro))
     }
 })
 
