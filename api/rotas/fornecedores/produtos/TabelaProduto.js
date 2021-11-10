@@ -14,5 +14,17 @@ module.exports = {
                 fornecedor: fornecedor
             }
         })
+    },
+    buscaProduto(id, fornecedor){
+        return Modelo.findOne({
+            where: {
+                id: id,
+                fornecedor: fornecedor
+            }, 
+            raw: true
+        })
+    },
+    atualizar(identificacao, novoProduto){
+        return Modelo.update(novoProduto, {where: identificacao})
     }
 }

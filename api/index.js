@@ -22,8 +22,8 @@ app.use('/api/fornecedores', roteador)
 
 app.use((erro, req, res, next) => {
     const serializador = new SerializadorError(res.getHeader('Content-type'))
-
-    if(erro.message === 'Fornecedor não encontrado') {
+    console.log(erro);
+    if(erro.message === 'Fornecedor não encontrado' || erro.message === 'Produto não encontrado!') {
         res.status(404).send(serializador.serializar(erro))    
     }else{
         res.status(500).send(serializador.serializar(erro))

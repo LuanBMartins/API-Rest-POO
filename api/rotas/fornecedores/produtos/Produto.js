@@ -62,6 +62,42 @@ class Produto {
     async remover() {
         await Tabela.remove(this.id, this.fornecedor)
     }
+
+    async buscaProduto(){
+        const res = await Tabela.buscaProduto(this.id, this.fornecedor)
+        if(!res){
+            throw new Error('Produto não encontrado!')
+        }
+
+        this.titulo = res.titulo
+        this.preco = res.preco
+        this.estoque = res.estoque
+        this.dataCriacao = res.dataCriacao
+        this.dataAtualizacao = res.dataAtualizacao
+        this.versao = res.versao
+    }
+
+    async atualizar(){
+        
+        const dadosAtualizar = {}
+
+        if(typeof this.titulo === 'string' && this.titulo.length > 0){
+            dadosAtualizar.titulo = this.titulo
+        } 
+
+        if(typeof this.preco === 'number' && this.preco > 0){
+            dadosAtualizar.preco = this.preco
+        } 
+        
+        if(typeof this.estoque === 'number' && this.estoque >= 0){
+            dadosAtualizar.estoque = this.estoque
+        } 
+        if(Object.keys(dadosAtualizar).length <= 0){
+            throw new Error('Não foram fornecidos dados para atualizar')
+        }
+
+        return Tabela.atualizar({id: this.id, fornecedor: this.fornecedor}, dadosAtualizar)
+    }
 }
 
 module.exports = Produto

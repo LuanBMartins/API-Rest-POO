@@ -37,4 +37,35 @@ roteador.delete('/:id', async (req, res) => {
     }
 })
 
+roteador.get('/:id', async (req, res, next) => {
+    try {        
+        const dados = {
+            id: req.params.id,
+            fornecedor : req.fornecedor.id
+        }
+        const produto = new Produto(dados)
+        await produto.buscaProduto()
+        res.status(200).send(produto)
+    } catch (error) {
+        next(error)
+    }
+})
+
+roteador.put('/:id', async (req, res, next) => {
+    try {
+        const dados = {
+            id: req.params.id,
+            fornecedor : req.fornecedor.id,
+            ...req.body
+        }
+        console.log(dados);
+
+        const produto = new Produto(dados)
+        await produto.atualizar()
+        res.status(204).end()
+    } catch (error) {
+        next(error)
+    }
+})
+
 module.exports = roteador
