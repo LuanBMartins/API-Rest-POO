@@ -17,6 +17,11 @@ app.use((req, res, next) => {
     }
 })
 
+app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
+    next()
+})
+
 const roteador = require('./rotas/fornecedores')
 app.use('/api/fornecedores', roteador)
 
